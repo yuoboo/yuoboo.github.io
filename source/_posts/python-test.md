@@ -1,7 +1,7 @@
 ---
 title: python-test
 date: 2018-10-24 09:33:33
-tags: Python test
+tags: [Python,test]
 categories: Python
 ---
 
