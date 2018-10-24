@@ -1,3 +1,3 @@
-http://www.yubing.info/python-test.html
-http://www.yubing.info/python基础之属性方法.html
-http://www.yubing.info/python中编码的那些事.html
+http://www.yubing.info/2018/python-test/
+http://www.yubing.info/2018/python基础之属性方法/
+http://www.yubing.info/2018/python中编码的那些事/
