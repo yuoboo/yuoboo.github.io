@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'true', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    <meta name="sogou_site_verification" content="true">
+    
+    
+    
+    <title>python中编码的那些事 | yuoboo&#39;s Blogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python,编码">
+    <meta name="description" content="TODO 各种编码的区别 在Python中,编码分为文本编码,url编码和解释器编码 下面从这三个方面来对比Python2 与 Python3的区别  Python2中:  Python2解释器默认编码为ASCII编码,使用python2时基本都用’utf-8’所以经常会出现下面这种错误,这是由于解释器编码问题导致  UnicodeDecodeError: ‘ascii’ codec can’t">
+<meta name="keywords" content="Python,编码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python中编码的那些事">
+<meta property="og:url" content="http://www.yubing.info/2018/python中编码的那些事/index.html">
+<meta property="og:site_name" content="yuoboo&#39;s Blogs">
+<meta property="og:description" content="TODO 各种编码的区别 在Python中,编码分为文本编码,url编码和解释器编码 下面从这三个方面来对比Python2 与 Python3的区别  Python2中:  Python2解释器默认编码为ASCII编码,使用python2时基本都用’utf-8’所以经常会出现下面这种错误,这是由于解释器编码问题导致  UnicodeDecodeError: ‘ascii’ codec can’t">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-23T10:24:55.044Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python中编码的那些事">
+<meta name="twitter:description" content="TODO 各种编码的区别 在Python中,编码分为文本编码,url编码和解释器编码 下面从这三个方面来对比Python2 与 Python3的区别  Python2中:  Python2解释器默认编码为ASCII编码,使用python2时基本都用’utf-8’所以经常会出现下面这种错误,这是由于解释器编码问题导致  UnicodeDecodeError: ‘ascii’ codec can’t">
+    
+        <link rel="alternate" type="application/atom+xml" title="yuoboo&#39;s Blogs" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yuoboo</h5>
+          <a href="mailto:yuoboo1008@foxmail.com" title="yuoboo1008@foxmail.com" class="mail">yuoboo1008@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yuoboo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.zhihu.com/people/yuoboo/activities"  >
+                <i class="icon icon-lg icon-book"></i>
+                知乎
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+            <p>
+              <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC"></a>
+            </p>
+            <p>
+                Power by <a href="http://hexo.io/" target="_blank" style="color:#00BCD4">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" style="color:#00BCD4">indigo</a>
+            </p>
+
+            
+                <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+            
+      </footer>
+
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header fixed" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">python中编码的那些事</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <!-- <h1 class="title">python中编码的那些事</h1> -->
+        <h5 class="subtitle">
+            
+                <time datetime="2018-05-07T18:54:13.000Z" itemprop="datePublished" class="page-time">
+  2018-05-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/初级/">初级</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#TODO-各种编码的区别"><span class="post-toc-number">1.</span> <span class="post-toc-text">TODO 各种编码的区别</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-python中编码的那些事"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">python中编码的那些事</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-05-08 02:54:13" datetime="2018-05-07T18:54:13.000Z"  itemprop="datePublished">2018-05-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/初级/">初级</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h5 id="TODO-各种编码的区别"><a href="#TODO-各种编码的区别" class="headerlink" title="TODO 各种编码的区别"></a>TODO 各种编码的区别</h5><ul>
+<li>在Python中,编码分为文本编码,url编码和解释器编码</li>
+<li>下面从这三个方面来对比Python2 与 Python3的区别</li>
+</ul>
+<p>Python2中:</p>
+<ul>
+<li><p>Python2解释器默认编码为ASCII编码,使用python2时基本都用’utf-8’所以经常会出现下面这种错误,这是由于解释器编码问题导致</p>
+<blockquote>
+<p>UnicodeDecodeError: ‘ascii’ codec can’t decode byte 0xe4 in position 0</p>
+</blockquote>
+</li>
+<li><p>解决方案:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">  reload(sys)</span><br><span class="line">  sys.setdefaultencoding(<span class="string">'utf-8'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>python2中文本编码,python2中字符串类型一种 str(非unicode) ,一种 unicode,不同编码格式字符串之间不能直接转码,需要先解码(encode(‘utf8’))到中间状态unicode,再decode(‘gbk’)到想要的编码格式</p>
+</li>
+<li><p>python2中url编码与python3差别不大,这个主要是依赖urllib库</p>
+</li>
+<li><p>python3中编码问题就简单很多了, 因为python3解释器默认为’utf-8’,基本没有解释器编码的问题烦恼</p>
+</li>
+<li><p>python3中文本编码也简单许多, 因为python3中的字符串一种str(默认为unicode类型), 一种为bytes类型,str由于默认为unicode,所以不同编码格式之间可以直接转码不需要切换到中间状态</p>
+</li>
+</ul>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+
+        
+        版权声明：本文由 yuoboo 原创，欢迎技术博客转载,转载请附上原文链接!
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.yubing.info">
+            <img src="/img/avatar.jpg" alt="yuoboo">
+            yuoboo
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/编码/">编码</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yubing.info/2018/python中编码的那些事/&title=《python中编码的那些事》 — yuoboo's Blogs&pic=http://www.yubing.info/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yubing.info/2018/python中编码的那些事/&title=《python中编码的那些事》 — yuoboo's Blogs&source=A few steps, a few degrees" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yubing.info/2018/python中编码的那些事/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python中编码的那些事》 — yuoboo's Blogs&url=http://www.yubing.info/2018/python中编码的那些事/&via=http://www.yubing.info" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yubing.info/2018/python中编码的那些事/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/python基础之属性方法/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">python基础之属性方法</h4>
+      </a>
+    </div>
+  
+
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <!-- <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+          <span>yuoboo &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer> -->
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yubing.info/2018/python中编码的那些事/&title=《python中编码的那些事》 — yuoboo's Blogs&pic=http://www.yubing.info/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yubing.info/2018/python中编码的那些事/&title=《python中编码的那些事》 — yuoboo's Blogs&source=A few steps, a few degrees" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yubing.info/2018/python中编码的那些事/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python中编码的那些事》 — yuoboo's Blogs&url=http://www.yubing.info/2018/python中编码的那些事/&via=http://www.yubing.info" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yubing.info/2018/python中编码的那些事/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3aS27DMBAEUd//0srWgCGieoYKoGFpZQSKo6dFh/P5fPB1fV2/P7+7n9zze+fd/RsuGTJkvJZxLa+7e8gfvhoXfzYZMmScw+ChuQ5TErXp61s/mwwZMmTcfebHRH4clCFDhoxdjPXv8mhew2TIkCGjc0TjD0TA6yh/pBaXIUPGCxm86/7/nx+Zb8iQIeNVjFqzPi1reXwXRwgyZMgYzei3yWoRyUekwfKHDBkyRjN4+4wHLoeRgWg8hJAhQ8YgRi3yOnFJDpEpUoYMGScw0oZ+Z2DJS9xgACBDhozRjNoAstYs4y+IL8jKkCHjBAaJuW318ZLKI1uGDBknM9KGWlrQ1j6jpp4MGTJGM3ggkkNe+kD8mBiXuDJkyBjH4Ie/NAr73xA0B2XIkHEAoxame4thXrjKkCHjHAaPyOfeYloeBzsjMmTIGMHgh7DOqICXxOkLkiFDxgkMvnRVeyD+za29LxkyZIxm1ApRvh6RBnFr5UKGDBmjGZ2GWjAd5aEJqLdFrAwZMkYz+LAwXQWrhTL5NyBDhowzGSQEayGbDjjjsJYhQ8ZQxhVenTZcbUUMFbcyZMgYzei049NhQG2o0PmLMmTImMRI47Ifnbz0XT+DDBkyTmOQkrVT6KZNf/79MmTIkJEuPdSOjJ3VDRkyZMiIR4l4bNAZBmw7GsqQIeNVDFLEckzamEvXMmTIkHEao1M6pusXtUEpp8qQIWMc4w/VlUupdDw4xgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

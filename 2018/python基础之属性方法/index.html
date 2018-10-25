@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'true', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    <meta name="google-site-verification" content="true">
+    
+    
+    <meta name="sogou_site_verification" content="true">
+    
+    
+    
+    <title>python基础之属性方法 | yuoboo&#39;s Blogs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Python">
+    <meta name="description" content="类属性和实例属性 类属性是 类对象 所拥有的属性,它被所有的类对象的实例对象所共有,在内存中只存在一个副本 对于公有的类属性在类外可以通过类对象和实例对象访问, 私有类属性不可以  123456789101112131415161718class People(object):    address = &apos;湖北&apos;   #公有的类属性    __country = &apos;china&apos;    #私有的类">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python基础之属性方法">
+<meta property="og:url" content="http://www.yubing.info/2018/python基础之属性方法/index.html">
+<meta property="og:site_name" content="yuoboo&#39;s Blogs">
+<meta property="og:description" content="类属性和实例属性 类属性是 类对象 所拥有的属性,它被所有的类对象的实例对象所共有,在内存中只存在一个副本 对于公有的类属性在类外可以通过类对象和实例对象访问, 私有类属性不可以  123456789101112131415161718class People(object):    address = &apos;湖北&apos;   #公有的类属性    __country = &apos;china&apos;    #私有的类">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-10-23T10:24:55.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python基础之属性方法">
+<meta name="twitter:description" content="类属性和实例属性 类属性是 类对象 所拥有的属性,它被所有的类对象的实例对象所共有,在内存中只存在一个副本 对于公有的类属性在类外可以通过类对象和实例对象访问, 私有类属性不可以  123456789101112131415161718class People(object):    address = &apos;湖北&apos;   #公有的类属性    __country = &apos;china&apos;    #私有的类">
+    
+        <link rel="alternate" type="application/atom+xml" title="yuoboo&#39;s Blogs" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">yuoboo</h5>
+          <a href="mailto:yuoboo1008@foxmail.com" title="yuoboo1008@foxmail.com" class="mail">yuoboo1008@foxmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yuoboo" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://www.zhihu.com/people/yuoboo/activities"  >
+                <i class="icon icon-lg icon-book"></i>
+                知乎
+              </a>
+            </li>
+        
+      </ul>
+
+      <footer class="footer">
+            <p>
+              <a rel="license" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0;vertical-align:middle;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAPCAMAAABEF7i9AAAAllBMVEUAAAD///+rsapERER3d3eIiIjMzMzu7u4iIiKUmZO6v7rKzsoODg4RERFVVVUNDQ0NDg0PEA8zMzNLTEtbXltmZmZydnF9gn2AgICPkI+ZmZmqqqq7u7vFxsXIzMgNDQwZGRkgICAhISEkJSMnKCcuMC4xMzE5Ozk7PTtBQkFCQkJDQ0Nna2eGhoaHh4ezuLLGysbd3d1wVGpAAAAA4UlEQVR42q2T1xqCMAyFk7QsBQeKA9x7j/d/OSm22CpX0nzcpA1/T05aAOuBVkMAScQFHLnEwoCo2f1TnQIGoVMewjZEjVFN4GH1Ue1Cn2jWqwfsOOj6wDwGvotsl/c8lv7KIq1eLOsT0HMFHMIE/RZyHnlphryT9zyV+8WH5e8yQw3wnQvgAFxPTKUVi555SHR/lOfLMgVTeDlSfN+TaoUsiTyeIm+bCkHvCA2FUKG48LDtYBZBknsYP/G8NTw0gaaHyuQf4H5pecrB/FYCT2sL9zAfy1Xyjou6L8X2W7YcLyBZCRtnq/zfAAAAAElFTkSuQmCC"></a>
+            </p>
+            <p>
+                Power by <a href="http://hexo.io/" target="_blank" style="color:#00BCD4">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank" style="color:#00BCD4">indigo</a>
+            </p>
+
+            
+                <a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-2x icon-rss-square"></i></a>
+            
+      </footer>
+
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header fixed" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">python基础之属性方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <!-- <h1 class="title">python基础之属性方法</h1> -->
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-07T15:58:29.000Z" itemprop="datePublished" class="page-time">
+  2018-06-07
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#类属性和实例属性"><span class="post-toc-number">1.</span> <span class="post-toc-text">类属性和实例属性</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#类方法-实例方法和静态方法"><span class="post-toc-number">2.</span> <span class="post-toc-text">类方法,实例方法和静态方法</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#init-和-new-的区别"><span class="post-toc-number">3.</span> <span class="post-toc-text">__init__ 和 __new__ 的区别:</span></a></li><li class="post-toc-item post-toc-level-6"><a class="post-toc-link" href="#单例模式"><span class="post-toc-number">4.</span> <span class="post-toc-text">单例模式</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-python基础之属性方法"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">python基础之属性方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-06-07 23:58:29" datetime="2018-06-07T15:58:29.000Z"  itemprop="datePublished">2018-06-07</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Python/">Python</a></li></ul>
+
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <!-- ![picture][id]   -->
+<h6 id="类属性和实例属性"><a href="#类属性和实例属性" class="headerlink" title="类属性和实例属性"></a>类属性和实例属性</h6><ul>
+<li>类属性是 <em>类对象</em> 所拥有的属性,它被所有的类对象的实例对象所共有,在内存中只存在一个副本</li>
+<li>对于公有的类属性在类外可以通过类对象和实例对象访问, 私有类属性不可以</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line">    address = <span class="string">'湖北'</span>   <span class="comment">#公有的类属性</span></span><br><span class="line">    __country = <span class="string">'china'</span>    <span class="comment">#私有的类属性</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.name = <span class="string">'xiaowang'</span>   <span class="comment">#实例属性</span></span><br><span class="line">        self.age = <span class="number">20</span>   <span class="comment">#实例属性</span></span><br><span class="line">p = People()</span><br><span class="line">print(p.__country)        <span class="comment">#错误，不能在类外通过实例对象访问私有的类属性</span></span><br><span class="line">print(People.__country)   <span class="comment">#错误，不能在类外通过类对象访问私有的类属性</span></span><br><span class="line">p.age =<span class="number">12</span> <span class="comment">#实例属性</span></span><br><span class="line">print(p.name)    <span class="comment">#正确  实例属性</span></span><br><span class="line">print(p.age)     <span class="comment">#正确  实例属性</span></span><br><span class="line">print(People.address) <span class="comment">#正确  类对象访问类属性</span></span><br><span class="line">print(People.name)    <span class="comment">#错误  类对象无法访问实例属性</span></span><br><span class="line">p.address = <span class="string">'广东'</span>    <span class="comment">#新建同名实例属性, 并不会更改同名类属性, 实例属性会屏蔽掉同名的类属性</span></span><br><span class="line"><span class="keyword">del</span> p.address    <span class="comment">#删除实例属性</span></span><br><span class="line">People.address = <span class="string">'广东'</span>  <span class="comment"># 类对象才会修改雷属性</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果需要在类外修改类属性，必须通过类对象去引用然后进行修改。如果通过实例对象去引用，会产生一个同名的实例属性，这种方式修改的是实例属性，不会影响到类属性，并且之后如果通过实例对象去引用该名称的属性，实例属性会强制屏蔽掉类属性，即引用的是实例属性，除非删除了该实例属性  </li>
+</ul>
+<h6 id="类方法-实例方法和静态方法"><a href="#类方法-实例方法和静态方法" class="headerlink" title="类方法,实例方法和静态方法"></a>类方法,实例方法和静态方法</h6><ul>
+<li>类方法: 是类对象所拥有的方法，需要用修饰器<code>@classmethod</code>来标识其为类方法，对于类方法，第一个参数必须是类对象，一般以<code>cls</code>作为第一个参数（当然可以用其他名称的变量作为其第一个参数，但是大部分人都习惯以<code>cls</code>作为第一个参数的名字，就最好用<code>cls</code>了），能够通过 <em>实例对象和类对象</em> 去访问  </li>
+<li>类方法还有一个用途就是可以对类属性进行修改  </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line">    __country = <span class="string">'china'</span>   <span class="comment"># 私有类属性在类外部无法访问和修改</span></span><br><span class="line">    <span class="comment">#类方法，用classmethod来进行修饰</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getCountry</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> cls.__country</span><br><span class="line"></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setCountry</span><span class="params">(cls,country)</span>:</span></span><br><span class="line">        cls.__country = country</span><br><span class="line"></span><br><span class="line">    p = People()</span><br><span class="line">    <span class="keyword">print</span> p.getCountry()    <span class="comment">#可以用过实例对象引用</span></span><br><span class="line">    <span class="keyword">print</span> People.getCountry()    <span class="comment">#可以通过类对象引用</span></span><br><span class="line">    p.setCountry(<span class="string">'japan'</span>)   </span><br><span class="line">    <span class="keyword">print</span> p.getCountry()   </span><br><span class="line">    <span class="keyword">print</span> People.getCountry()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>静态方法: 需要通过修饰器<code>@staticmethod</code>来进行修饰，静态方法不需要多定义参数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span><span class="params">(object)</span>:</span></span><br><span class="line">    country = <span class="string">'china'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getCountry</span><span class="params">()</span>:</span>   <span class="comment">#静态方法</span></span><br><span class="line">        <span class="keyword">return</span> People.country</span><br><span class="line"></span><br><span class="line">    <span class="keyword">print</span> People.getCountry()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>从类方法和实例方法以及静态方法的定义形式就可以看出来，类方法的第一个参数是类对象cls，那么通过cls引用的必定是类对象的属性和方法；而实例方法的第一个参数是实例对象self，那么通过self引用的可能是类属性、也有可能是实例属性（这个需要具体分析），不过在存在相同名称的类属性和实例属性的情况下，实例属性优先级更高。静态方法中不需要额外定义参数，因此在静态方法中引用类属性的话，必须通过类对象来引用</li>
+<li>两者最明显的区别是:类方法必须有一个类对象参数,静态方法不需要任务参数  </li>
+</ul>
+<h6 id="init-和-new-的区别"><a href="#init-和-new-的区别" class="headerlink" title="__init__ 和 __new__ 的区别:"></a><code>__init__</code> 和 <code>__new__</code> 的区别:</h6><ul>
+<li><code>__new__</code>在<code>__init__</code>之前执行  </li>
+<li><code>__new__</code>至少要有一个参数cls，代表要实例化的类，此参数在实例化时由Python解释器自动提供   </li>
+<li><code>__new__</code>必须要有返回值，返回实例化出来的实例，这点在自己实现<code>__new__</code>时要特别注意，可以<code>return</code>父类<code>__new__</code>出来的实例，或者直接是<code>object</code>的<code>__new__</code>出来的实例  </li>
+<li><code>__init__</code>有一个参数self，就是这个<code>__new__</code>返回的实例，<code>__init__</code>在<code>__new__</code>的基础上可以完成一些其它初始化的动作，<code>__init__</code>不需要返回值</li>
+<li><code>__new__</code> 来实现单例模式  </li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(object)</span>:</span></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">      print(<span class="string">"这是 init 方法"</span>)</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls)</span>:</span></span><br><span class="line">      print(<span class="string">"这是 new 方法"</span>)</span><br><span class="line">      <span class="keyword">return</span> object.__new__(cls)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用父类初始化方法的三种方式:</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">      <span class="comment"># 调用父类的__init__方法1(python2)</span></span><br><span class="line">      A.__init__(self)</span><br><span class="line">      <span class="comment"># 调用父类的__init__方法2</span></span><br><span class="line">      super(B,self).__init__()</span><br><span class="line">      <span class="comment"># 调用父类的__init__方法3</span></span><br><span class="line">      super().__init__()</span><br></pre></td></tr></table></figure>
+<h6 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h6><ul>
+<li>单例:确保某一个类只有一个实例,而且自行实例化并向整个系统提供这个实例,这个类称为单例类,单例模式是一种对象创建型模式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Single</span><span class="params">(object)</span>:</span></span><br><span class="line">    __instance = <span class="keyword">None</span></span><br><span class="line">    __first_init = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls)</span>:</span></span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">not</span> __instance:</span><br><span class="line">        cls.__instance = object.__new__(cls)</span><br><span class="line">      <span class="keyword">return</span> cls.__instance</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age)</span>:</span></span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">not</span> __first_init:</span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        Single.__first_init = <span class="keyword">True</span></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+
+        
+        版权声明：本文由 yuoboo 原创，欢迎技术博客转载,转载请附上原文链接!
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.yubing.info">
+            <img src="/img/avatar.jpg" alt="yuoboo">
+            yuoboo
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yubing.info/2018/python基础之属性方法/&title=《python基础之属性方法》 — yuoboo's Blogs&pic=http://www.yubing.info/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yubing.info/2018/python基础之属性方法/&title=《python基础之属性方法》 — yuoboo's Blogs&source=A few steps, a few degrees" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yubing.info/2018/python基础之属性方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python基础之属性方法》 — yuoboo's Blogs&url=http://www.yubing.info/2018/python基础之属性方法/&via=http://www.yubing.info" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yubing.info/2018/python基础之属性方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/python-test/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">python-test</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/python中编码的那些事/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">python中编码的那些事</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <!-- <footer class="footer">
+    <div class="top">
+        
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+          <span>yuoboo &copy; 2018</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer> -->
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.yubing.info/2018/python基础之属性方法/&title=《python基础之属性方法》 — yuoboo's Blogs&pic=http://www.yubing.info/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.yubing.info/2018/python基础之属性方法/&title=《python基础之属性方法》 — yuoboo's Blogs&source=A few steps, a few degrees" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.yubing.info/2018/python基础之属性方法/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《python基础之属性方法》 — yuoboo's Blogs&url=http://www.yubing.info/2018/python基础之属性方法/&via=http://www.yubing.info" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.yubing.info/2018/python基础之属性方法/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOElEQVR42u3aO27DMBAFQN//0gqQLoWU95ZKAFHDKrAZweNivb/PJz7H95m9fnbn7Ob1/aWDgYHxWMZxeZKPkjwt/9Bnd86eiYGB8R5GGwqP4Jzxrl9Pvj4MDAyMNr1r7yRfBwYGBsZKwG3Dax5kMTAwMK4ZSeDLS9CkQG0bcLfV4hgYGA9ktIOB//z7D+cbGBgYD2Ec5Vn5r3YwUDwfAwNja8ZZgLsuHe8aJOSDgSgcY2BgbMpIAG2zrB1DXt+MimEMDIytGbOAOytu8zbZ9Z3bfjcwMDAewpgNKfM2/SzpbJNFDAyMvRkrI8y2NZYH1qXfDQwMjE0ZbfhbCZdtKZuUuBgYGG9gtAVnG5ST/5218zAwMN7DaBPE2epYkdLFJAwMjDcw2qDZjhv/rqDFwMB4DyNP+KJHLIw52y+rqL8xMDC2YMwa+rM1i5XljKjdhoGBsSkjb6LNhppJOM4D8S8lMQYGxnaMOn8MEsS86daWwZ98/wIDA2MjRpvMzZYhkuevFLoYGBh7M5L0btYImy1h5FG0iP0YGBhbMPK0LEnR2jJ4VkL/eAIGBsbWjDYVK7bMykHpbF2smHxiYGA8lnGU596W3G3vYmBgbM2YBbj1hn6+WNa2AjEwMHZlzIJsu0iRv9sWvRgYGO9htNsL+ev1TLUcHmBgYGCskGbFcLvwgYGBgbGyPJEXq20JvZQaYmBgPJaRBMc2pCYfZZY4/rLjhoGBsR1jVkDmTbF8tDBr1WFgYGzN+AJYoUHP0o03iAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
